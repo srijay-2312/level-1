@@ -1,0 +1,30 @@
+import requests
+
+API_KEY = "3e972cbddc40ed92310f84f8c0ad24b2"
+city = "Salem"
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+
+    data = response.json()
+    weather = data["weather"][0]["description"]
+    temp = data["main"]["temp"]
+    humidity = data["main"]["humidity"]
+
+    print(f"🌤️ Weather in {city}:")
+    print(f"Description: {weather}")
+    print(f"Temperature: {temp}°C")
+    print(f"Humidity: {humidity}%")
+
+except requests.exceptions.HTTPError as errh:
+    print("❌ HTTP Error:", errh)
+except requests.exceptions.ConnectionError as errc:
+    print("❌ Connection Error:", errc)
+except requests.exceptions.Timeout as errt:
+    print("❌ Timeout Error:", errt)
+except requests.exceptions.RequestException as err:
+    print("❌ Request Error:", err)
+except KeyError:
+    print("❌ Invalid response format.")

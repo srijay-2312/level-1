@@ -1,0 +1,26 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+# Step 1: Fetch the page
+url = "https://quotes.toscrape.com"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+# Step 2: Extract data
+quotes_data = []
+quotes = soup.find_all("div", class_="quote")
+
+for quote in quotes:
+    text = quote.find("span", class_="text").get_text(strip=True)
+    author = quote.find("small", class_="author").get_text(strip=True)
+    tags = [tag.get_text(strip=True) for tag in quote.find_all("a", class_="tag")]
+    quotes_data.append([text, author, ", ".join(tags)])
+
+# Step 3: Save to CSV
+with open("scraped_quotes.csv", "w", newline="", encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["Quote", "Author", "Tags"])
+    writer.writerows(quotes_data)
+
+print("✅ Data scraped and saved to scraped_quotes.csv")
