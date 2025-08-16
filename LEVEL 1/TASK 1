@@ -1,0 +1,38 @@
+#addition
+def add(x,y):
+    return x + y
+#subraction
+def sub(x,y):
+    return x - y
+#multiplication
+def multi(x,y):
+    return x * y
+#division
+def divi(x,y):
+    if y == 0:
+        return " ERROR !!! = NOT DIVISIBLE BY ZERO"
+    else:
+        return x / y
+#modulus 
+def mod(x,y):
+    if y == 0:
+        return " ERROR !!! = CANNOT RUN MODULUS BY ZERO"
+    else:
+        return x % y
+#get two numbers and a operation from the user
+x=int(input("ENTER FIRST NUMBER:"))
+y=int(input("ENTER SECOND NUMBER:"))
+operation=input("CHOOSE YOUR OPERATION: + , - , * , / , % = ")
+
+if operation == "+":
+    print("ADDITION : ",add(x,y) )
+elif operation == "-":
+    print("SUBRACTION : ",sub(x,y))
+elif operation == "*":
+    print("MULTIPLICATION : ",multi(x,y))
+elif operation == "/":
+    print("DIVISION : ",divi(x,y))
+elif operation == "%":
+    print("MODULUS : ",mod(x,y))
+else:
+    print("...ERROR!! : PLEASE ENTER A VALID OPERATOR....")
